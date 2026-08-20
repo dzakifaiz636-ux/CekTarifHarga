@@ -7,7 +7,9 @@ on:
       - main
 
 jobs:
+
   build:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -15,10 +17,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
 
       - name: Setup Java
         uses: actions/setup-java@v5
@@ -26,26 +30,40 @@ jobs:
           distribution: temurin
           java-version: 21
 
+
       - name: Install Dependencies
         run: npm install
 
-      - name: Add Android
+
+      - name: Check Website
+        run: |
+          test -f www/index.html
+          echo "www/index.html ditemukan"
+
+
+      - name: Add Android Platform
         run: |
           if [ ! -d android ]; then
             npx cap add android
           fi
 
+
       - name: Sync Capacitor
         run: npx cap sync android
 
-      - name: Build APK
+
+      - name: Build Debug APK
         working-directory: android
         run: ./gradlew assembleDebug --no-daemon
+
 
       - name: Check APK
         run: |
           test -f android/app/build/outputs/apk/debug/app-debug.apk
+          echo "================================="
           echo "APK BERHASIL DIBUAT!"
+          echo "================================="
+
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
