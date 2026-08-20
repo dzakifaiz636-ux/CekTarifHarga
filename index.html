@@ -3,27 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cek Tarif Harga Barang</title>
+  <title>Cek Tarif Harga</title>
 
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
+      margin: 0;
       min-height: 100vh;
       font-family: Arial, sans-serif;
-      color: white;
-      background: linear-gradient(160deg, #05060f, #0b0f2b 45%, #150a34);
+      color: #f8fafc;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(37,99,235,.25), transparent 30%),
+        radial-gradient(circle at 100% 25%, rgba(147,51,234,.25), transparent 30%),
+        linear-gradient(160deg, #05060f, #0b0f2b 45%, #150a34);
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
     }
 
     .container {
       width: 100%;
       max-width: 430px;
       margin: auto;
-      padding: 28px 20px;
+      padding: 28px 18px 40px;
     }
 
     .header {
@@ -39,14 +52,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 23px;
       background: linear-gradient(135deg, #3b82f6, #9333ea);
+      box-shadow: 0 8px 25px rgba(124,58,237,.35);
     }
 
     h1 {
+      margin: 0;
       font-size: 19px;
+      font-weight: 800;
       background: linear-gradient(90deg, #93c5fd, #a5f3fc, #c4b5fd);
       -webkit-background-clip: text;
+      background-clip: text;
       color: transparent;
     }
 
@@ -56,191 +73,345 @@
       margin-top: 4px;
     }
 
-    .search {
+    .search-box {
       margin-top: 20px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       padding: 14px;
-      border-radius: 16px;
+      border-radius: 17px;
       background: rgba(255,255,255,.06);
       border: 1px solid rgba(255,255,255,.1);
     }
 
-    .search input {
-      width: 100%;
-      border: none;
-      outline: none;
+    .search-box:focus-within {
+      border-color: rgba(96,165,250,.7);
+      box-shadow: 0 0 25px rgba(59,130,246,.18);
+    }
+
+    .search-icon {
+      font-size: 18px;
+      color: #94a3b8;
+    }
+
+    #search {
+      flex: 1;
+      min-width: 0;
       background: transparent;
+      border: 0;
+      outline: 0;
       color: white;
       font-size: 14px;
     }
 
-    .search input::placeholder {
+    #search::placeholder {
       color: #64748b;
+    }
+
+    .clear-search {
+      background: transparent;
+      color: #64748b;
+      font-size: 18px;
     }
 
     .empty {
       text-align: center;
-      padding: 55px 10px;
+      padding: 55px 15px 35px;
       color: #94a3b8;
     }
 
     .empty-icon {
-      font-size: 48px;
-      margin-bottom: 15px;
+      width: 76px;
+      height: 76px;
+      margin: auto;
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 35px;
+      background: linear-gradient(
+        135deg,
+        rgba(59,130,246,.15),
+        rgba(147,51,234,.15)
+      );
+      border: 1px solid rgba(255,255,255,.1);
+    }
+
+    .empty-title {
+      color: #e2e8f0;
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 16px;
+    }
+
+    .empty-text {
+      font-size: 12px;
+      margin-top: 6px;
+      color: #64748b;
+    }
+
+    .products {
+      margin-top: 20px;
     }
 
     .card {
-      margin-top: 12px;
-      padding: 16px;
+      margin-bottom: 12px;
+      padding: 15px;
       border-radius: 18px;
       background: rgba(255,255,255,.06);
       border: 1px solid rgba(255,255,255,.1);
+      backdrop-filter: blur(10px);
     }
 
     .card-top {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .name {
+    .product-name {
       font-size: 15px;
-      font-weight: bold;
+      font-weight: 800;
+      color: #f8fafc;
+      word-break: break-word;
     }
 
     .brand {
+      margin-top: 4px;
       color: #94a3b8;
       font-size: 12px;
-      margin-top: 5px;
     }
 
     .category {
       display: inline-block;
       margin-top: 8px;
       padding: 4px 8px;
-      border-radius: 20px;
+      border-radius: 999px;
       color: #67e8f9;
-      background: rgba(34,211,238,.1);
-      border: 1px solid rgba(34,211,238,.2);
-      font-size: 10px;
+      background: rgba(34,211,238,.08);
+      border: 1px solid rgba(34,211,238,.18);
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
     }
 
     .price {
+      flex-shrink: 0;
       height: fit-content;
-      padding: 7px 10px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: bold;
-      white-space: nowrap;
+      padding: 8px 10px;
+      border-radius: 11px;
       background: linear-gradient(135deg, #3b82f6, #9333ea);
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+      box-shadow: 0 5px 15px rgba(124,58,237,.25);
     }
 
-    .buttons {
+    .actions {
       display: flex;
       gap: 8px;
       margin-top: 14px;
       padding-top: 12px;
-      border-top: 1px solid rgba(255,255,255,.1);
+      border-top: 1px solid rgba(255,255,255,.08);
     }
 
-    button {
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn {
+    .btn-small {
       flex: 1;
       padding: 10px;
-      border-radius: 12px;
-      color: white;
-      font-weight: bold;
-      background: rgba(255,255,255,.06);
+      border-radius: 11px;
+      color: #e2e8f0;
+      background: rgba(255,255,255,.05);
+      font-size: 12px;
+      font-weight: 700;
     }
 
-    .delete {
+    .btn-small.delete {
       color: #fda4af;
       background: rgba(244,63,94,.1);
     }
 
-    .add {
+    .main-button {
       width: 100%;
-      margin-top: 20px;
+      margin-top: 18px;
       padding: 14px;
       border-radius: 16px;
       color: white;
-      font-size: 14px;
-      font-weight: bold;
       background: linear-gradient(90deg, #3b82f6, #9333ea);
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 8px 25px rgba(124,58,237,.3);
+    }
+
+    .data-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .data-button {
+      flex: 1;
+      padding: 12px 8px;
+      border-radius: 13px;
+      color: #cbd5e1;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .data-button.export {
+      color: #93c5fd;
+    }
+
+    .data-button.import {
+      color: #c4b5fd;
+    }
+
+    input.form-input {
+      width: 100%;
+      margin-top: 6px;
+      padding: 12px;
+      border-radius: 11px;
+      border: 1px solid rgba(255,255,255,.1);
+      outline: 0;
+      background: rgba(255,255,255,.05);
+      color: white;
+      font-size: 14px;
+    }
+
+    input.form-input:focus {
+      border-color: rgba(96,165,250,.7);
+    }
+
+    .form-label {
+      display: block;
+      margin-top: 12px;
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 700;
     }
 
     .modal {
       position: fixed;
       inset: 0;
-      display: none;
+      z-index: 100;
+      display: flex;
       align-items: flex-end;
       justify-content: center;
-      background: rgba(0,0,0,.7);
       padding: 0;
+      background: rgba(0,0,0,.65);
     }
 
-    .modal.show {
-      display: flex;
+    .modal.center {
+      align-items: center;
+      padding: 20px;
     }
 
-    .form {
+    .modal-box {
       width: 100%;
       max-width: 430px;
-      padding: 22px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 20px;
       border-radius: 25px 25px 0 0;
       background: linear-gradient(160deg, #0b0f2b, #150a34);
-    }
-
-    .form h2 {
-      margin-bottom: 18px;
-      font-size: 17px;
-    }
-
-    .form label {
-      display: block;
-      color: #94a3b8;
-      font-size: 12px;
-      margin-top: 12px;
-      margin-bottom: 5px;
-    }
-
-    .form input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 12px;
       border: 1px solid rgba(255,255,255,.1);
-      outline: none;
-      background: rgba(255,255,255,.06);
-      color: white;
     }
 
-    .save {
-      width: 100%;
-      margin-top: 20px;
-      padding: 14px;
-      border-radius: 15px;
-      color: white;
-      font-weight: bold;
-      background: linear-gradient(90deg, #3b82f6, #9333ea);
+    .modal.center .modal-box {
+      border-radius: 22px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 800;
     }
 
     .close {
-      float: right;
+      background: transparent;
       color: #94a3b8;
-      background: none;
-      font-size: 20px;
+      font-size: 22px;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      color: white;
+      background: rgba(255,255,255,.08);
+    }
+
+    .modal-btn.primary {
+      background: linear-gradient(90deg, #3b82f6, #9333ea);
+    }
+
+    .modal-btn.danger {
+      background: linear-gradient(90deg, #f43f5e, #f97316);
     }
 
     .error {
+      margin-top: 10px;
       color: #fda4af;
       font-size: 12px;
-      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 200;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: 390px;
+      padding: 13px 15px;
+      border-radius: 14px;
+      background: rgba(15,23,42,.95);
+      border: 1px solid rgba(255,255,255,.12);
+      text-align: center;
+      font-size: 12px;
+      color: #e2e8f0;
+      box-shadow: 0 10px 35px rgba(0,0,0,.4);
+      animation: toast .25s ease;
+    }
+
+    @keyframes toast {
+      from {
+        opacity: 0;
+        transform: translate(-50%, 15px);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (min-width: 600px) {
+      body {
+        padding: 20px 0;
+      }
+
+      .modal-box {
+        border-radius: 25px;
+      }
     }
   </style>
 </head>
@@ -251,67 +422,205 @@
 
   <div class="header">
     <div class="logo">✨</div>
+
     <div>
       <h1>CEK TARIF HARGA BARANG</h1>
-      <p class="subtitle">Toko digital kamu, satu ketikan aja</p>
+      <div class="subtitle">Toko digital kamu, satu ketikan aja</div>
     </div>
   </div>
 
-  <div class="search">
-    🔍
+  <div class="search-box">
+    <span class="search-icon">🔎</span>
+
     <input
       id="search"
       type="text"
       placeholder="Ketik merek atau nama barang..."
-      oninput="cariBarang()"
+      autocomplete="off"
     >
+
+    <button
+      class="clear-search hidden"
+      id="clearSearch"
+      onclick="clearSearch()"
+    >×</button>
   </div>
 
-  <div id="hasil">
-    <div class="empty">
-      <div class="empty-icon">📦</div>
-      <p>Mulai ketik untuk mencari tarif harga barang.</p>
-      <small>Temukan harga dengan cepat dan mudah.</small>
+  <div id="products" class="products"></div>
+
+  <div id="empty" class="empty">
+    <div class="empty-icon">📦</div>
+
+    <div class="empty-title">
+      Mulai ketik untuk mencari tarif harga barang.
+    </div>
+
+    <div class="empty-text">
+      Temukan harga dengan cepat dan mudah.
     </div>
   </div>
 
-  <button class="add" onclick="bukaTambah()">
+  <button class="main-button" onclick="openAdd()">
     ＋ Tambah Barang
   </button>
 
-</div>
+  <div class="data-buttons">
 
-<div class="modal" id="modal">
-  <div class="form">
+    <button
+      class="data-button export"
+      onclick="exportData()"
+    >
+      📤 Export Data
+    </button>
 
-    <button class="close" onclick="tutupForm()">✕</button>
-
-    <h2 id="judulForm">Tambah Barang Baru</h2>
-
-    <label>Nama Barang</label>
-    <input id="nama" placeholder="Contoh: Mie Sedaap Goreng">
-
-    <label>Merek</label>
-    <input id="merek" placeholder="Contoh: Sedaap">
-
-    <label>Harga</label>
-    <input id="harga" type="number" placeholder="Contoh: 3000">
-
-    <label>Kategori</label>
-    <input id="kategori" placeholder="Contoh: Makanan Instan">
-
-    <div id="error" class="error"></div>
-
-    <button class="save" onclick="simpanBarang()">
-      Simpan Barang
+    <button
+      class="data-button import"
+      onclick="document.getElementById('importFile').click()"
+    >
+      📥 Import Data
     </button>
 
   </div>
+
+  <input
+    type="file"
+    id="importFile"
+    accept=".json,application/json"
+    class="hidden"
+  >
+
 </div>
+
+
+<!-- MODAL TAMBAH / EDIT -->
+
+<div id="formModal" class="modal hidden">
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <div id="formTitle" class="modal-title">
+        Tambah Barang Baru
+      </div>
+
+      <button
+        class="close"
+        onclick="closeForm()"
+      >×</button>
+
+    </div>
+
+    <label class="form-label">
+      Nama Barang
+    </label>
+
+    <input
+      id="nama"
+      class="form-input"
+      placeholder="Contoh: Mie Sedaap Goreng"
+    >
+
+    <label class="form-label">
+      Merek
+    </label>
+
+    <input
+      id="merek"
+      class="form-input"
+      placeholder="Contoh: Sedaap"
+    >
+
+    <label class="form-label">
+      Harga (Rupiah)
+    </label>
+
+    <input
+      id="harga"
+      class="form-input"
+      type="number"
+      min="1"
+      placeholder="Contoh: 3000"
+    >
+
+    <label class="form-label">
+      Kategori
+    </label>
+
+    <input
+      id="kategori"
+      class="form-input"
+      placeholder="Contoh: Makanan Instan"
+    >
+
+    <div id="formError" class="error hidden"></div>
+
+    <div class="modal-buttons">
+
+      <button
+        class="modal-btn"
+        onclick="closeForm()"
+      >
+        Batal
+      </button>
+
+      <button
+        class="modal-btn primary"
+        onclick="saveProduct()"
+      >
+        Simpan
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- MODAL HAPUS -->
+
+<div id="deleteModal" class="modal center hidden">
+
+  <div class="modal-box">
+
+    <div class="modal-title">
+      Hapus barang ini?
+    </div>
+
+    <p
+      id="deleteText"
+      style="color:#94a3b8;font-size:12px;line-height:1.6"
+    ></p>
+
+    <div class="modal-buttons">
+
+      <button
+        class="modal-btn"
+        onclick="closeDelete()"
+      >
+        Batal
+      </button>
+
+      <button
+        class="modal-btn danger"
+        onclick="confirmDelete()"
+      >
+        Ya, Hapus
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
 
 <script>
 
-let barangList = [
+const STORAGE_KEY = "cek-tarif-harga-data-v2";
+
+const DATA_AWAL = [
   {
     id: 1,
     nama: "Indomie Goreng",
@@ -349,156 +658,327 @@ let barangList = [
   }
 ];
 
-let editingId = null;
 
-function formatRupiah(angka) {
-  return "Rp" + Number(angka).toLocaleString("id-ID");
+let barangList = loadData();
+
+let editingId = null;
+let deleteId = null;
+
+
+/* =========================
+   PENYIMPANAN
+========================= */
+
+function loadData() {
+
+  try {
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if (!saved) {
+      return DATA_AWAL;
+    }
+
+    const data = JSON.parse(saved);
+
+    if (!Array.isArray(data)) {
+      return DATA_AWAL;
+    }
+
+    return data;
+
+  } catch (error) {
+
+    return DATA_AWAL;
+
+  }
+
 }
 
-function simpanData() {
+
+function saveData() {
+
   localStorage.setItem(
-    "daftarBarang",
+    STORAGE_KEY,
     JSON.stringify(barangList)
   );
+
 }
 
-function muatData() {
-  const data = localStorage.getItem("daftarBarang");
 
-  if (data) {
-    barangList = JSON.parse(data);
-  }
+/* =========================
+   FORMAT RUPIAH
+========================= */
+
+function formatRupiah(number) {
+
+  return "Rp" + Number(number).toLocaleString("id-ID");
+
 }
 
-function cariBarang() {
+
+/* =========================
+   RENDER
+========================= */
+
+function render() {
 
   const query =
-    document.getElementById("search").value
-    .toLowerCase()
-    .trim();
+    document
+      .getElementById("search")
+      .value
+      .trim()
+      .toLowerCase();
 
-  const hasil = document.getElementById("hasil");
+  const container =
+    document.getElementById("products");
+
+  const empty =
+    document.getElementById("empty");
+
+  container.innerHTML = "";
 
   if (!query) {
-    hasil.innerHTML = `
-      <div class="empty">
-        <div class="empty-icon">📦</div>
-        <p>Mulai ketik untuk mencari tarif harga barang.</p>
-        <small>Temukan harga dengan cepat dan mudah.</small>
-      </div>
-    `;
+
+    empty.classList.remove("hidden");
+
     return;
+
   }
 
-  const data = barangList.filter(b =>
-    b.nama.toLowerCase().includes(query) ||
-    b.merek.toLowerCase().includes(query)
-  );
+  empty.classList.add("hidden");
 
-  if (data.length === 0) {
-    hasil.innerHTML = `
-      <div class="empty">
+  const hasil = barangList.filter(function(item) {
+
+    return (
+      item.nama.toLowerCase().includes(query) ||
+      item.merek.toLowerCase().includes(query)
+    );
+
+  });
+
+
+  if (hasil.length === 0) {
+
+    container.innerHTML = `
+      <div class="empty" style="padding-top:40px">
         <div class="empty-icon">❌</div>
-        <p>Barang tidak ditemukan.</p>
-        <small>Coba nama atau merek lain.</small>
+
+        <div class="empty-title">
+          Barang tidak ditemukan.
+        </div>
+
+        <div class="empty-text">
+          Coba nama atau merek lain.
+        </div>
       </div>
     `;
+
     return;
+
   }
 
-  hasil.innerHTML = data.map(b => `
-    <div class="card">
+
+  hasil.forEach(function(item) {
+
+    const card =
+      document.createElement("div");
+
+    card.className = "card";
+
+    card.innerHTML = `
 
       <div class="card-top">
 
-        <div>
-          <div class="name">${b.nama}</div>
-          <div class="brand">Merek: ${b.merek}</div>
+        <div style="min-width:0">
+
+          <div class="product-name">
+            ${escapeHTML(item.nama)}
+          </div>
+
+          <div class="brand">
+            Merek: ${escapeHTML(item.merek)}
+          </div>
 
           <span class="category">
-            ${b.kategori}
+            ${escapeHTML(item.kategori)}
           </span>
+
         </div>
 
         <div class="price">
-          ${formatRupiah(b.harga)}
+          ${formatRupiah(item.harga)}
         </div>
 
       </div>
 
-      <div class="buttons">
+      <div class="actions">
 
-        <button class="btn"
-          onclick="bukaEdit(${b.id})">
+        <button
+          class="btn-small"
+          onclick="openEdit(${item.id})"
+        >
           ✏️ Edit
         </button>
 
-        <button class="btn delete"
-          onclick="hapusBarang(${b.id})">
+        <button
+          class="btn-small delete"
+          onclick="openDelete(${item.id})"
+        >
           🗑️ Hapus
         </button>
 
       </div>
 
-    </div>
-  `).join("");
+    `;
+
+    container.appendChild(card);
+
+  });
+
 }
 
-function bukaTambah() {
+
+/* =========================
+   SECURITY HTML
+========================= */
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+document
+  .getElementById("search")
+  .addEventListener("input", function() {
+
+    const clear =
+      document.getElementById("clearSearch");
+
+    if (this.value) {
+      clear.classList.remove("hidden");
+    } else {
+      clear.classList.add("hidden");
+    }
+
+    render();
+
+  });
+
+
+function clearSearch() {
+
+  document.getElementById("search").value = "";
+
+  document
+    .getElementById("clearSearch")
+    .classList.add("hidden");
+
+  render();
+
+}
+
+
+/* =========================
+   TAMBAH
+========================= */
+
+function openAdd() {
 
   editingId = null;
 
-  document.getElementById("judulForm").innerText =
-    "Tambah Barang Baru";
+  document.getElementById("formTitle")
+    .textContent = "Tambah Barang Baru";
+
+  clearForm();
+
+  document
+    .getElementById("formModal")
+    .classList.remove("hidden");
+
+}
+
+
+function clearForm() {
 
   document.getElementById("nama").value = "";
   document.getElementById("merek").value = "";
   document.getElementById("harga").value = "";
   document.getElementById("kategori").value = "";
-  document.getElementById("error").innerText = "";
 
-  document.getElementById("modal")
-    .classList.add("show");
+  document
+    .getElementById("formError")
+    .classList.add("hidden");
+
 }
 
-function bukaEdit(id) {
 
-  const barang =
-    barangList.find(b => b.id === id);
+/* =========================
+   EDIT
+========================= */
 
-  if (!barang) return;
+function openEdit(id) {
+
+  const item =
+    barangList.find(function(b) {
+      return b.id === id;
+    });
+
+  if (!item) return;
 
   editingId = id;
 
-  document.getElementById("judulForm").innerText =
-    "Edit Barang";
+  document.getElementById("formTitle")
+    .textContent = "Edit Barang";
 
   document.getElementById("nama").value =
-    barang.nama;
+    item.nama;
 
   document.getElementById("merek").value =
-    barang.merek;
+    item.merek;
 
   document.getElementById("harga").value =
-    barang.harga;
+    item.harga;
 
   document.getElementById("kategori").value =
-    barang.kategori;
+    item.kategori;
 
-  document.getElementById("error").innerText = "";
+  document
+    .getElementById("formError")
+    .classList.add("hidden");
 
-  document.getElementById("modal")
-    .classList.add("show");
-}
-
-function tutupForm() {
-
-  document.getElementById("modal")
-    .classList.remove("show");
+  document
+    .getElementById("formModal")
+    .classList.remove("hidden");
 
 }
 
-function simpanBarang() {
+
+function closeForm() {
+
+  document
+    .getElementById("formModal")
+    .classList.add("hidden");
+
+}
+
+
+/* =========================
+   SIMPAN
+========================= */
+
+function saveProduct() {
 
   const nama =
     document.getElementById("nama").value.trim();
@@ -507,85 +987,436 @@ function simpanBarang() {
     document.getElementById("merek").value.trim();
 
   const harga =
-    document.getElementById("harga").value;
+    Number(document.getElementById("harga").value);
 
   const kategori =
     document.getElementById("kategori").value.trim();
 
+
   const error =
-    document.getElementById("error");
+    document.getElementById("formError");
+
 
   if (!nama || !merek || !harga || !kategori) {
 
-    error.innerText =
+    error.textContent =
       "Semua kolom wajib diisi.";
 
+    error.classList.remove("hidden");
+
     return;
+
   }
 
-  if (Number(harga) <= 0) {
 
-    error.innerText =
+  if (!Number.isFinite(harga) || harga <= 0) {
+
+    error.textContent =
       "Harga harus lebih dari 0.";
 
+    error.classList.remove("hidden");
+
     return;
+
   }
+
 
   if (editingId !== null) {
 
-    const index =
-      barangList.findIndex(
-        b => b.id === editingId
-      );
+    barangList =
+      barangList.map(function(item) {
 
-    barangList[index] = {
-      id: editingId,
-      nama,
-      merek,
-      harga: Number(harga),
-      kategori
-    };
+        if (item.id === editingId) {
+
+          return {
+            id: item.id,
+            nama: nama,
+            merek: merek,
+            harga: harga,
+            kategori: kategori
+          };
+
+        }
+
+        return item;
+
+      });
+
+    showToast("Barang berhasil diperbarui.");
 
   } else {
 
     barangList.unshift({
+
       id: Date.now(),
-      nama,
-      merek,
-      harga: Number(harga),
-      kategori
+
+      nama: nama,
+
+      merek: merek,
+
+      harga: harga,
+
+      kategori: kategori
+
     });
+
+    showToast("Barang berhasil ditambahkan.");
 
   }
 
-  simpanData();
-  tutupForm();
-  cariBarang();
+
+  saveData();
+
+  closeForm();
+
+  render();
+
 }
 
-function hapusBarang(id) {
 
-  const barang =
-    barangList.find(b => b.id === id);
+/* =========================
+   HAPUS
+========================= */
 
-  if (!barang) return;
+function openDelete(id) {
 
-  const yakin = confirm(
-    "Hapus " + barang.nama + "?"
-  );
+  const item =
+    barangList.find(function(b) {
+      return b.id === id;
+    });
 
-  if (!yakin) return;
+  if (!item) return;
+
+  deleteId = id;
+
+  document.getElementById("deleteText")
+    .textContent =
+      item.nama +
+      " akan dihapus dari daftar dan tidak bisa dikembalikan.";
+
+  document
+    .getElementById("deleteModal")
+    .classList.remove("hidden");
+
+}
+
+
+function closeDelete() {
+
+  deleteId = null;
+
+  document
+    .getElementById("deleteModal")
+    .classList.add("hidden");
+
+}
+
+
+function confirmDelete() {
+
+  if (deleteId === null) return;
 
   barangList =
-    barangList.filter(
-      b => b.id !== id
-    );
+    barangList.filter(function(item) {
 
-  simpanData();
-  cariBarang();
+      return item.id !== deleteId;
+
+    });
+
+  saveData();
+
+  closeDelete();
+
+  render();
+
+  showToast("Barang berhasil dihapus.");
+
 }
 
-muatData();
+
+/* =========================
+   EXPORT DATA
+========================= */
+
+function exportData() {
+
+  try {
+
+    const data = {
+
+      aplikasi: "Cek Tarif Harga",
+
+      versi: 2,
+
+      tanggalExport:
+        new Date().toISOString(),
+
+      jumlahBarang:
+        barangList.length,
+
+      barang:
+        barangList
+
+    };
+
+
+    const json =
+      JSON.stringify(data, null, 2);
+
+
+    const blob =
+      new Blob(
+        [json],
+        {
+          type: "application/json"
+        }
+      );
+
+
+    const url =
+      URL.createObjectURL(blob);
+
+
+    const link =
+      document.createElement("a");
+
+    link.href = url;
+
+    const tanggal =
+      new Date()
+        .toISOString()
+        .slice(0, 10);
+
+    link.download =
+      "data-tarif-harga-" +
+      tanggal +
+      ".json";
+
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    setTimeout(function() {
+
+      URL.revokeObjectURL(url);
+
+    }, 1000);
+
+
+    showToast(
+      "Data berhasil diexport."
+    );
+
+  } catch (error) {
+
+    showToast(
+      "Gagal melakukan export data."
+    );
+
+  }
+
+}
+
+
+/* =========================
+   IMPORT DATA
+========================= */
+
+document
+  .getElementById("importFile")
+  .addEventListener(
+    "change",
+    function(event) {
+
+      const file =
+        event.target.files[0];
+
+      if (!file) return;
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function(e) {
+
+          try {
+
+            const data =
+              JSON.parse(e.target.result);
+
+
+            let imported;
+
+
+            if (
+              Array.isArray(data)
+            ) {
+
+              imported = data;
+
+            } else if (
+              Array.isArray(data.barang)
+            ) {
+
+              imported = data.barang;
+
+            } else {
+
+              throw new Error(
+                "Format data tidak valid"
+              );
+
+            }
+
+
+            const valid =
+              imported.filter(function(item) {
+
+                return (
+                  item &&
+                  typeof item.nama === "string" &&
+                  typeof item.merek === "string" &&
+                  Number.isFinite(Number(item.harga)) &&
+                  typeof item.kategori === "string"
+                );
+
+              });
+
+
+            if (valid.length === 0) {
+
+              throw new Error(
+                "Tidak ada data barang yang valid."
+              );
+
+            }
+
+
+            barangList =
+              valid.map(function(item, index) {
+
+                return {
+
+                  id:
+                    Number.isFinite(Number(item.id))
+                      ? Number(item.id)
+                      : Date.now() + index,
+
+                  nama:
+                    item.nama.trim(),
+
+                  merek:
+                    item.merek.trim(),
+
+                  harga:
+                    Number(item.harga),
+
+                  kategori:
+                    item.kategori.trim()
+
+                };
+
+              });
+
+
+            saveData();
+
+            render();
+
+            showToast(
+              valid.length +
+              " barang berhasil diimport."
+            );
+
+
+          } catch (error) {
+
+            showToast(
+              "File tidak valid atau rusak."
+            );
+
+          }
+
+
+          event.target.value = "";
+
+        };
+
+
+      reader.readAsText(file);
+
+    }
+  );
+
+
+/* =========================
+   TOAST
+========================= */
+
+function showToast(message) {
+
+  const old =
+    document.querySelector(".toast");
+
+  if (old) old.remove();
+
+
+  const toast =
+    document.createElement("div");
+
+  toast.className = "toast";
+
+  toast.textContent = message;
+
+  document.body.appendChild(toast);
+
+
+  setTimeout(function() {
+
+    toast.remove();
+
+  }, 2500);
+
+}
+
+
+/* =========================
+   TUTUP MODAL KETIKA
+   KLIK LUAR
+========================= */
+
+document
+  .getElementById("formModal")
+  .addEventListener("click", function(e) {
+
+    if (e.target === this) {
+      closeForm();
+    }
+
+  });
+
+
+document
+  .getElementById("deleteModal")
+  .addEventListener("click", function(e) {
+
+    if (e.target === this) {
+      closeDelete();
+    }
+
+  });
+
+
+/* =========================
+   MULAI APLIKASI
+========================= */
+
+render();
 
 </script>
 
