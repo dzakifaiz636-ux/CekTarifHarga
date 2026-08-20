@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PatyStore - Cek Tarif Harga</title>
+
+<title>PatyStore</title>
 
 <style>
 * {
@@ -14,15 +15,15 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: Arial, sans-serif;
-  color: #fff;
-  background: linear-gradient(160deg,#05060f,#0b0f2b 50%,#150a34);
+  color: white;
+  background: linear-gradient(160deg, #05060f, #0b0f2b, #150a34);
 }
 
 .container {
   width: 100%;
   max-width: 430px;
   margin: auto;
-  padding: 25px 18px 40px;
+  padding: 22px 16px 40px;
 }
 
 .header {
@@ -32,14 +33,21 @@ body {
 }
 
 .logo {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   border-radius: 15px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 23px;
-  background: linear-gradient(135deg,#3b82f6,#9333ea);
+
+  font-size: 24px;
+
+  background: linear-gradient(
+    135deg,
+    #3b82f6,
+    #9333ea
+  );
 }
 
 h1 {
@@ -48,28 +56,35 @@ h1 {
 }
 
 .subtitle {
+  margin-top: 4px;
   color: #94a3b8;
   font-size: 12px;
-  margin-top: 4px;
 }
 
 .search {
-  margin-top: 22px;
+  margin-top: 20px;
+
   display: flex;
   align-items: center;
   gap: 8px;
+
   padding: 14px;
-  border-radius: 16px;
+
+  border-radius: 15px;
+
   background: rgba(255,255,255,.07);
   border: 1px solid rgba(255,255,255,.1);
 }
 
 .search input {
   width: 100%;
-  border: 0;
-  outline: 0;
-  background: transparent;
+
+  border: none;
+  outline: none;
+
   color: white;
+  background: transparent;
+
   font-size: 14px;
 }
 
@@ -78,20 +93,22 @@ h1 {
 }
 
 .content {
-  min-height: 280px;
-  margin-top: 22px;
+  margin-top: 20px;
+  min-height: 250px;
 }
 
 .empty {
+  padding: 45px 10px;
   text-align: center;
-  padding: 50px 10px;
   color: #94a3b8;
 }
 
 .card {
   margin-bottom: 12px;
   padding: 15px;
+
   border-radius: 17px;
+
   background: rgba(255,255,255,.06);
   border: 1px solid rgba(255,255,255,.1);
 }
@@ -103,56 +120,120 @@ h1 {
 }
 
 .nama {
-  font-weight: bold;
   font-size: 15px;
+  font-weight: bold;
 }
 
 .merek {
+  margin-top: 4px;
   color: #94a3b8;
   font-size: 12px;
-  margin-top: 4px;
 }
 
 .kategori {
   display: inline-block;
+
   margin-top: 7px;
   padding: 5px 8px;
+
   border-radius: 20px;
+
   color: #67e8f9;
   background: rgba(34,211,238,.1);
+
   font-size: 10px;
 }
 
 .harga {
-  white-space: nowrap;
-  padding: 7px 10px;
   height: fit-content;
+  white-space: nowrap;
+
+  padding: 8px 10px;
+
   border-radius: 10px;
+
   font-size: 13px;
   font-weight: bold;
-  background: linear-gradient(135deg,#3b82f6,#9333ea);
+
+  background: linear-gradient(
+    135deg,
+    #3b82f6,
+    #9333ea
+  );
 }
 
-.buttons {
+.main-btn {
+  width: 100%;
+
+  padding: 15px;
+
+  border: none;
+  border-radius: 15px;
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  background: linear-gradient(
+    90deg,
+    #3b82f6,
+    #9333ea
+  );
+}
+
+.data-buttons {
   display: flex;
-  gap: 8px;
-  margin-top: 13px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255,255,255,.1);
+  gap: 9px;
+
+  margin-top: 10px;
+}
+
+.data-btn {
+  flex: 1;
+
+  padding: 13px 5px;
+
+  border-radius: 14px;
+
+  color: white;
+
+  font-size: 12px;
+  font-weight: bold;
+
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.1);
+
+  cursor: pointer;
 }
 
 button {
-  border: 0;
   cursor: pointer;
+}
+
+.small-buttons {
+  display: flex;
+  gap: 8px;
+
+  margin-top: 13px;
+  padding-top: 12px;
+
+  border-top: 1px solid rgba(255,255,255,.1);
 }
 
 .small-btn {
   flex: 1;
+
   padding: 10px;
+
+  border: none;
   border-radius: 11px;
+
   color: white;
-  background: rgba(255,255,255,.07);
+
   font-weight: bold;
+
+  background: rgba(255,255,255,.07);
 }
 
 .delete {
@@ -160,63 +241,49 @@ button {
   background: rgba(244,63,94,.1);
 }
 
-.main-btn {
-  width: 100%;
-  padding: 15px;
-  border-radius: 16px;
-  color: white;
-  font-size: 14px;
-  font-weight: bold;
-  background: linear-gradient(90deg,#3b82f6,#9333ea);
-}
-
-.data-buttons {
-  display: flex;
-  gap: 9px;
-  margin-top: 10px;
-}
-
-.data-btn {
-  flex: 1;
-  padding: 13px 5px;
-  border-radius: 14px;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.1);
-}
-
 .modal {
   position: fixed;
   inset: 0;
-  z-index: 10;
+
+  z-index: 100;
+
   display: none;
   align-items: flex-end;
   justify-content: center;
-  background: rgba(0,0,0,.65);
+
+  background: rgba(0,0,0,.7);
 }
 
 .modal-box {
   width: 100%;
   max-width: 430px;
+
   padding: 22px;
+
   border-radius: 25px 25px 0 0;
-  background: linear-gradient(160deg,#0b0f2b,#150a34);
+
+  background: linear-gradient(
+    160deg,
+    #0b0f2b,
+    #150a34
+  );
 }
 
 .modal-box h2 {
   margin-top: 0;
-  font-size: 17px;
 }
 
 .input {
   width: 100%;
+
   margin-bottom: 10px;
   padding: 13px;
+
   border: 1px solid rgba(255,255,255,.1);
   border-radius: 12px;
+
   outline: none;
+
   color: white;
   background: rgba(255,255,255,.06);
 }
@@ -228,15 +295,18 @@ button {
 .modal-buttons {
   display: flex;
   gap: 8px;
-  margin-top: 5px;
 }
 
 .modal-buttons button {
   flex: 1;
+
   padding: 13px;
+
+  border: none;
   border-radius: 12px;
-  font-weight: bold;
+
   color: white;
+  font-weight: bold;
 }
 
 .cancel {
@@ -244,16 +314,22 @@ button {
 }
 
 .save {
-  background: linear-gradient(90deg,#3b82f6,#9333ea);
+  background: linear-gradient(
+    90deg,
+    #3b82f6,
+    #9333ea
+  );
 }
 
-.warning {
-  color: #fda4af;
-  font-size: 12px;
+.error {
   margin-bottom: 10px;
+
+  color: #fda4af;
+
+  font-size: 12px;
 }
 
-input[type=file] {
+input[type="file"] {
   display: none;
 }
 </style>
@@ -264,43 +340,73 @@ input[type=file] {
 <div class="container">
 
   <div class="header">
-    <div class="logo">✨</div>
+
+    <div class="logo">
+      ✨
+    </div>
 
     <div>
       <h1>CEK TARIF HARGA BARANG</h1>
-      <div class="subtitle">PatyStore • Toko digital kamu</div>
+
+      <div class="subtitle">
+        PatyStore • Data Barang
+      </div>
     </div>
+
   </div>
 
+
   <div class="search">
+
     🔍
+
     <input
       id="search"
       type="text"
-      placeholder="Ketik merek atau nama barang..."
+      placeholder="Cari nama atau merek barang..."
       oninput="tampilkanBarang()"
     >
+
   </div>
 
-  <div id="content" class="content"></div>
 
-  <button class="main-btn" onclick="bukaTambah()">
+  <div
+    id="content"
+    class="content"
+  ></div>
+
+
+  <button
+    class="main-btn"
+    onclick="bukaTambah()"
+  >
     ＋ Tambah Barang
   </button>
 
+
   <div class="data-buttons">
 
-    <button class="data-btn" onclick="exportData()">
+    <button
+      class="data-btn"
+      onclick="exportData()"
+    >
       📤 Export Data
     </button>
 
-    <label class="data-btn" style="text-align:center">
+
+    <label
+      class="data-btn"
+      style="text-align:center"
+    >
+
       📥 Import Data
+
       <input
         type="file"
         accept=".json,application/json"
         onchange="importData(event)"
       >
+
     </label>
 
   </div>
@@ -308,13 +414,17 @@ input[type=file] {
 </div>
 
 
-<!-- MODAL TAMBAH / EDIT -->
-
-<div id="modal" class="modal">
+<div
+  id="modal"
+  class="modal"
+>
 
   <div class="modal-box">
 
-    <h2 id="modalTitle">Tambah Barang</h2>
+    <h2 id="modalTitle">
+      Tambah Barang
+    </h2>
+
 
     <input
       id="nama"
@@ -322,11 +432,13 @@ input[type=file] {
       placeholder="Nama Barang"
     >
 
+
     <input
       id="merek"
       class="input"
       placeholder="Merek"
     >
+
 
     <input
       id="harga"
@@ -335,21 +447,34 @@ input[type=file] {
       placeholder="Harga"
     >
 
+
     <input
       id="kategori"
       class="input"
       placeholder="Kategori"
     >
 
-    <div id="error" class="warning"></div>
+
+    <div
+      id="error"
+      class="error"
+    ></div>
+
 
     <div class="modal-buttons">
 
-      <button class="cancel" onclick="tutupModal()">
+      <button
+        class="cancel"
+        onclick="tutupModal()"
+      >
         Batal
       </button>
 
-      <button class="save" onclick="simpanBarang()">
+
+      <button
+        class="save"
+        onclick="simpanBarang()"
+      >
         Simpan
       </button>
 
@@ -370,6 +495,7 @@ const DATA_AWAL = [
     harga: 3500,
     kategori: "Makanan Instan"
   },
+
   {
     id: 2,
     nama: "Aqua 600 ml",
@@ -377,32 +503,22 @@ const DATA_AWAL = [
     harga: 4000,
     kategori: "Minuman"
   },
+
   {
     id: 3,
     nama: "Teh Botol Sosro",
     merek: "Sosro",
     harga: 5000,
     kategori: "Minuman"
-  },
-  {
-    id: 4,
-    nama: "Rinso",
-    merek: "Rinso",
-    harga: 25000,
-    kategori: "Kebutuhan Rumah Tangga"
-  },
-  {
-    id: 5,
-    nama: "Lifebuoy",
-    merek: "Lifebuoy",
-    harga: 5000,
-    kategori: "Kebutuhan Rumah Tangga"
   }
 ];
 
+
 let barangList =
-  JSON.parse(localStorage.getItem("PatyStoreData")) ||
-  DATA_AWAL;
+  JSON.parse(
+    localStorage.getItem("PatyStoreData")
+  ) || DATA_AWAL;
+
 
 let editingId = null;
 
@@ -419,104 +535,9 @@ function simpanLocal() {
 
 function rupiah(angka) {
 
-  return "Rp" + Number(angka).toLocaleString("id-ID");
-
-}
-
-
-function tampilkanBarang() {
-
-  const query =
-    document.getElementById("search")
-      .value
-      .trim()
-      .toLowerCase();
-
-  const content =
-    document.getElementById("content");
-
-  if (!query) {
-
-    content.innerHTML = `
-      <div class="empty">
-        🔎
-        <h3>Mulai mencari barang</h3>
-        <p>Ketik nama atau merek barang.</p>
-      </div>
-    `;
-
-    return;
-
-  }
-
-  const hasil = barangList.filter(b =>
-    b.nama.toLowerCase().includes(query) ||
-    b.merek.toLowerCase().includes(query)
-  );
-
-  if (hasil.length === 0) {
-
-    content.innerHTML = `
-      <div class="empty">
-        ❌
-        <h3>Barang tidak ditemukan</h3>
-        <p>Coba nama atau merek lain.</p>
-      </div>
-    `;
-
-    return;
-
-  }
-
-  content.innerHTML = hasil.map(b => `
-
-    <div class="card">
-
-      <div class="card-top">
-
-        <div>
-
-          <div class="nama">
-            ${escapeHTML(b.nama)}
-          </div>
-
-          <div class="merek">
-            Merek: ${escapeHTML(b.merek)}
-          </div>
-
-          <span class="kategori">
-            ${escapeHTML(b.kategori)}
-          </span>
-
-        </div>
-
-        <div class="harga">
-          ${rupiah(b.harga)}
-        </div>
-
-      </div>
-
-      <div class="buttons">
-
-        <button
-          class="small-btn"
-          onclick="bukaEdit(${b.id})"
-        >
-          ✏️ Edit
-        </button>
-
-        <button
-          class="small-btn delete"
-          onclick="hapusBarang(${b.id})"
-        >
-          🗑️ Hapus
-        </button>
-
-      </div>
-
-    </div>
-
-  `).join("");
+  return "Rp" +
+    Number(angka)
+      .toLocaleString("id-ID");
 
 }
 
@@ -533,22 +554,142 @@ function escapeHTML(text) {
 }
 
 
+function tampilkanBarang() {
+
+  const query =
+    document
+      .getElementById("search")
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  const content =
+    document.getElementById("content");
+
+
+  if (!query) {
+
+    content.innerHTML = `
+      <div class="empty">
+        🔎
+        <h3>Mulai mencari barang</h3>
+        <p>Ketik nama atau merek barang.</p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const hasil =
+    barangList.filter(b =>
+
+      b.nama
+        .toLowerCase()
+        .includes(query)
+
+      ||
+
+      b.merek
+        .toLowerCase()
+        .includes(query)
+
+    );
+
+
+  if (hasil.length === 0) {
+
+    content.innerHTML = `
+      <div class="empty">
+        ❌
+        <h3>Barang tidak ditemukan</h3>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  content.innerHTML =
+    hasil.map(b => `
+
+      <div class="card">
+
+        <div class="card-top">
+
+          <div>
+
+            <div class="nama">
+              ${escapeHTML(b.nama)}
+            </div>
+
+            <div class="merek">
+              Merek:
+              ${escapeHTML(b.merek)}
+            </div>
+
+            <span class="kategori">
+              ${escapeHTML(b.kategori)}
+            </span>
+
+          </div>
+
+
+          <div class="harga">
+            ${rupiah(b.harga)}
+          </div>
+
+        </div>
+
+
+        <div class="small-buttons">
+
+          <button
+            class="small-btn"
+            onclick="bukaEdit(${b.id})"
+          >
+            ✏️ Edit
+          </button>
+
+
+          <button
+            class="small-btn delete"
+            onclick="hapusBarang(${b.id})"
+          >
+            🗑️ Hapus
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
 function bukaTambah() {
 
   editingId = null;
 
-  document.getElementById("modalTitle")
+
+  document
+    .getElementById("modalTitle")
     .textContent = "Tambah Barang";
+
 
   document.getElementById("nama").value = "";
   document.getElementById("merek").value = "";
   document.getElementById("harga").value = "";
   document.getElementById("kategori").value = "";
+  document.getElementById("error").textContent = "";
 
-  document.getElementById("error")
-    .textContent = "";
 
-  document.getElementById("modal")
+  document
+    .getElementById("modal")
     .style.display = "flex";
 
 }
@@ -557,14 +698,21 @@ function bukaTambah() {
 function bukaEdit(id) {
 
   const barang =
-    barangList.find(b => b.id === id);
+    barangList.find(
+      b => b.id === id
+    );
+
 
   if (!barang) return;
 
+
   editingId = id;
 
-  document.getElementById("modalTitle")
+
+  document
+    .getElementById("modalTitle")
     .textContent = "Edit Barang";
+
 
   document.getElementById("nama").value =
     barang.nama;
@@ -578,10 +726,11 @@ function bukaEdit(id) {
   document.getElementById("kategori").value =
     barang.kategori;
 
-  document.getElementById("error")
-    .textContent = "";
+  document.getElementById("error").textContent = "";
 
-  document.getElementById("modal")
+
+  document
+    .getElementById("modal")
     .style.display = "flex";
 
 }
@@ -589,7 +738,8 @@ function bukaEdit(id) {
 
 function tutupModal() {
 
-  document.getElementById("modal")
+  document
+    .getElementById("modal")
     .style.display = "none";
 
 }
@@ -598,31 +748,52 @@ function tutupModal() {
 function simpanBarang() {
 
   const nama =
-    document.getElementById("nama")
-      .value.trim();
+    document
+      .getElementById("nama")
+      .value
+      .trim();
+
 
   const merek =
-    document.getElementById("merek")
-      .value.trim();
+    document
+      .getElementById("merek")
+      .value
+      .trim();
+
 
   const harga =
-    Number(document.getElementById("harga").value);
+    Number(
+      document
+        .getElementById("harga")
+        .value
+    );
+
 
   const kategori =
-    document.getElementById("kategori")
-      .value.trim();
+    document
+      .getElementById("kategori")
+      .value
+      .trim();
+
 
   const error =
     document.getElementById("error");
 
-  if (!nama || !merek || !harga || !kategori) {
+
+  if (
+    !nama ||
+    !merek ||
+    !harga ||
+    !kategori
+  ) {
 
     error.textContent =
-      "Semua kolom wajib diisi.";
+      "Semua kolom harus diisi.";
 
     return;
 
   }
+
 
   if (harga <= 0) {
 
@@ -633,6 +804,7 @@ function simpanBarang() {
 
   }
 
+
   if (editingId !== null) {
 
     const index =
@@ -640,14 +812,21 @@ function simpanBarang() {
         b => b.id === editingId
       );
 
+
     if (index !== -1) {
 
       barangList[index] = {
+
         id: editingId,
-        nama,
-        merek,
-        harga,
-        kategori
+
+        nama: nama,
+
+        merek: merek,
+
+        harga: harga,
+
+        kategori: kategori
+
       };
 
     }
@@ -658,17 +837,18 @@ function simpanBarang() {
 
       id: Date.now(),
 
-      nama,
+      nama: nama,
 
-      merek,
+      merek: merek,
 
-      harga,
+      harga: harga,
 
-      kategori
+      kategori: kategori
 
     });
 
   }
+
 
   simpanLocal();
 
@@ -682,21 +862,30 @@ function simpanBarang() {
 function hapusBarang(id) {
 
   const barang =
-    barangList.find(b => b.id === id);
+    barangList.find(
+      b => b.id === id
+    );
+
 
   if (!barang) return;
 
-  const yakin =
-    confirm(
-      `Hapus "${barang.nama}"?`
-    );
 
-  if (!yakin) return;
+  if (
+    !confirm(
+      `Hapus "${barang.nama}"?`
+    )
+  ) {
+
+    return;
+
+  }
+
 
   barangList =
     barangList.filter(
       b => b.id !== id
     );
+
 
   simpanLocal();
 
@@ -705,7 +894,11 @@ function hapusBarang(id) {
 }
 
 
-function exportData() {
+/* =================================
+   EXPORT PATYSTORE.JSON
+   ================================= */
+
+async function exportData() {
 
   try {
 
@@ -716,6 +909,81 @@ function exportData() {
         2
       );
 
+
+    /* Capacitor Android */
+
+    if (
+      window.Capacitor &&
+      window.Capacitor.isNativePlatform()
+    ) {
+
+      const Filesystem =
+        window.Capacitor.Plugins.Filesystem;
+
+      const Share =
+        window.Capacitor.Plugins.Share;
+
+
+      if (!Filesystem || !Share) {
+
+        throw new Error(
+          "Plugin Capacitor belum tersedia."
+        );
+
+      }
+
+
+      /* Buat file di penyimpanan cache aplikasi */
+
+      const result =
+        await Filesystem.writeFile({
+
+          path: "PatyStore.json",
+
+          data: data,
+
+          directory: "CACHE",
+
+          encoding: "utf8"
+
+        });
+
+
+      /* Ambil URI file */
+
+      const uriResult =
+        await Filesystem.getUri({
+
+          path: "PatyStore.json",
+
+          directory: "CACHE"
+
+        });
+
+
+      /* Buka Android Share Sheet */
+
+      await Share.share({
+
+        title: "PatyStore",
+
+        text: "Data PatyStore",
+
+        url: uriResult.uri,
+
+        dialogTitle:
+          "Bagikan PatyStore.json"
+
+      });
+
+
+      return;
+
+    }
+
+
+    /* Jika dibuka sebagai website */
+
     const blob =
       new Blob(
         [data],
@@ -724,16 +992,20 @@ function exportData() {
         }
       );
 
+
     const url =
       URL.createObjectURL(blob);
 
+
     const a =
       document.createElement("a");
+
 
     a.href = url;
 
     a.download =
       "PatyStore.json";
+
 
     document.body.appendChild(a);
 
@@ -741,16 +1013,16 @@ function exportData() {
 
     document.body.removeChild(a);
 
+
     URL.revokeObjectURL(url);
 
-    alert(
-      "Data berhasil diekspor sebagai PatyStore.json"
-    );
 
   } catch (error) {
 
+    console.error(error);
+
     alert(
-      "Gagal mengekspor data."
+      "Gagal melakukan Export Data."
     );
 
   }
@@ -758,12 +1030,18 @@ function exportData() {
 }
 
 
+/* =================================
+   IMPORT PATYSTORE.JSON
+   ================================= */
+
 function importData(event) {
 
   const file =
     event.target.files?.[0];
 
+
   if (!file) return;
+
 
   if (
     !file.name
@@ -772,7 +1050,7 @@ function importData(event) {
   ) {
 
     alert(
-      "Pilih file JSON."
+      "Pilih file PatyStore.json."
     );
 
     event.target.value = "";
@@ -781,91 +1059,107 @@ function importData(event) {
 
   }
 
+
   const reader =
     new FileReader();
 
-  reader.onload = function(e) {
 
-    try {
+  reader.onload =
+    function(e) {
 
-      const data =
-        JSON.parse(
-          e.target.result
+      try {
+
+        const data =
+          JSON.parse(
+            e.target.result
+          );
+
+
+        if (!Array.isArray(data)) {
+
+          throw new Error();
+
+        }
+
+
+        const valid =
+          data.every(b =>
+            b &&
+            b.nama &&
+            b.merek &&
+            b.harga &&
+            b.kategori
+          );
+
+
+        if (!valid) {
+
+          throw new Error();
+
+        }
+
+
+        const yakin =
+          confirm(
+            `Import ${data.length} barang?\n\nData yang sekarang akan diganti.`
+          );
+
+
+        if (!yakin) {
+
+          event.target.value = "";
+
+          return;
+
+        }
+
+
+        barangList =
+          data.map(
+            (b, index) => ({
+
+              id:
+                Date.now() + index,
+
+              nama:
+                String(b.nama),
+
+              merek:
+                String(b.merek),
+
+              harga:
+                Number(b.harga),
+
+              kategori:
+                String(b.kategori)
+
+            })
+          );
+
+
+        simpanLocal();
+
+        tampilkanBarang();
+
+
+        alert(
+          `Berhasil mengimpor ${barangList.length} barang.`
         );
 
-      if (!Array.isArray(data)) {
 
-        throw new Error();
+      } catch (error) {
+
+        alert(
+          "File tidak valid.\n\nGunakan file PatyStore.json hasil Export Data."
+        );
 
       }
 
-      const valid =
-        data.every(b =>
-          b &&
-          b.nama &&
-          b.merek &&
-          b.harga &&
-          b.kategori
-        );
 
-      if (!valid) {
+      event.target.value = "";
 
-        throw new Error();
+    };
 
-      }
-
-      const yakin =
-        confirm(
-          `Import ${data.length} barang?\n\nData barang yang sekarang akan diganti.`
-        );
-
-      if (!yakin) {
-
-        event.target.value = "";
-
-        return;
-
-      }
-
-      barangList =
-        data.map((b,index) => ({
-
-          id:
-            Date.now() + index,
-
-          nama:
-            String(b.nama),
-
-          merek:
-            String(b.merek),
-
-          harga:
-            Number(b.harga),
-
-          kategori:
-            String(b.kategori)
-
-        }));
-
-      simpanLocal();
-
-      tampilkanBarang();
-
-      alert(
-        `Berhasil mengimpor ${barangList.length} barang.`
-      );
-
-    } catch (error) {
-
-      alert(
-        "File tidak valid.\nGunakan PatyStore.json hasil Export Data."
-      );
-
-    }
-
-    event.target.value = "";
-
-  };
 
   reader.readAsText(file);
 
@@ -877,4 +1171,4 @@ tampilkanBarang();
 </script>
 
 </body>
-  </html>
+</html>
