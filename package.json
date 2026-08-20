@@ -1,0 +1,13 @@
+{
+  "name": "cek-tarif-harga",
+  "version": "1.0.0",
+  "description": "Aplikasi Cek Tarif Harga Barang",
+  "scripts": {
+    "start": "vite",
+    "build": "vite"
+  },
+  "dependencies": {
+    "vite": "^6.0.0"
+  },
+  "devDependencies": {}
+}
