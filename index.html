@@ -1,419 +1,262 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cek Tarif Harga</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PatyStore - Cek Tarif Harga</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      color: #f8fafc;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(37,99,235,.25), transparent 30%),
-        radial-gradient(circle at 100% 25%, rgba(147,51,234,.25), transparent 30%),
-        linear-gradient(160deg, #05060f, #0b0f2b 45%, #150a34);
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  background: linear-gradient(160deg,#05060f,#0b0f2b 50%,#150a34);
+}
 
-    button,
-    input {
-      font-family: inherit;
-    }
+.container {
+  width: 100%;
+  max-width: 430px;
+  margin: auto;
+  padding: 25px 18px 40px;
+}
 
-    button {
-      border: 0;
-      cursor: pointer;
-    }
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-    .container {
-      width: 100%;
-      max-width: 430px;
-      margin: auto;
-      padding: 28px 18px 40px;
-    }
+.logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+  background: linear-gradient(135deg,#3b82f6,#9333ea);
+}
 
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+h1 {
+  margin: 0;
+  font-size: 19px;
+}
 
-    .logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 23px;
-      background: linear-gradient(135deg, #3b82f6, #9333ea);
-      box-shadow: 0 8px 25px rgba(124,58,237,.35);
-    }
+.subtitle {
+  color: #94a3b8;
+  font-size: 12px;
+  margin-top: 4px;
+}
 
-    h1 {
-      margin: 0;
-      font-size: 19px;
-      font-weight: 800;
-      background: linear-gradient(90deg, #93c5fd, #a5f3fc, #c4b5fd);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
+.search {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
+}
 
-    .subtitle {
-      color: #94a3b8;
-      font-size: 12px;
-      margin-top: 4px;
-    }
+.search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: white;
+  font-size: 14px;
+}
 
-    .search-box {
-      margin-top: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px;
-      border-radius: 17px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.1);
-    }
+.search input::placeholder {
+  color: #64748b;
+}
 
-    .search-box:focus-within {
-      border-color: rgba(96,165,250,.7);
-      box-shadow: 0 0 25px rgba(59,130,246,.18);
-    }
+.content {
+  min-height: 280px;
+  margin-top: 22px;
+}
 
-    .search-icon {
-      font-size: 18px;
-      color: #94a3b8;
-    }
+.empty {
+  text-align: center;
+  padding: 50px 10px;
+  color: #94a3b8;
+}
 
-    #search {
-      flex: 1;
-      min-width: 0;
-      background: transparent;
-      border: 0;
-      outline: 0;
-      color: white;
-      font-size: 14px;
-    }
+.card {
+  margin-bottom: 12px;
+  padding: 15px;
+  border-radius: 17px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+}
 
-    #search::placeholder {
-      color: #64748b;
-    }
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
 
-    .clear-search {
-      background: transparent;
-      color: #64748b;
-      font-size: 18px;
-    }
+.nama {
+  font-weight: bold;
+  font-size: 15px;
+}
 
-    .empty {
-      text-align: center;
-      padding: 55px 15px 35px;
-      color: #94a3b8;
-    }
+.merek {
+  color: #94a3b8;
+  font-size: 12px;
+  margin-top: 4px;
+}
 
-    .empty-icon {
-      width: 76px;
-      height: 76px;
-      margin: auto;
-      border-radius: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 35px;
-      background: linear-gradient(
-        135deg,
-        rgba(59,130,246,.15),
-        rgba(147,51,234,.15)
-      );
-      border: 1px solid rgba(255,255,255,.1);
-    }
+.kategori {
+  display: inline-block;
+  margin-top: 7px;
+  padding: 5px 8px;
+  border-radius: 20px;
+  color: #67e8f9;
+  background: rgba(34,211,238,.1);
+  font-size: 10px;
+}
 
-    .empty-title {
-      color: #e2e8f0;
-      font-weight: 600;
-      font-size: 14px;
-      margin-top: 16px;
-    }
+.harga {
+  white-space: nowrap;
+  padding: 7px 10px;
+  height: fit-content;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  background: linear-gradient(135deg,#3b82f6,#9333ea);
+}
 
-    .empty-text {
-      font-size: 12px;
-      margin-top: 6px;
-      color: #64748b;
-    }
+.buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 13px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,.1);
+}
 
-    .products {
-      margin-top: 20px;
-    }
+button {
+  border: 0;
+  cursor: pointer;
+}
 
-    .card {
-      margin-bottom: 12px;
-      padding: 15px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.1);
-      backdrop-filter: blur(10px);
-    }
+.small-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 11px;
+  color: white;
+  background: rgba(255,255,255,.07);
+  font-weight: bold;
+}
 
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-    }
+.delete {
+  color: #fda4af;
+  background: rgba(244,63,94,.1);
+}
 
-    .product-name {
-      font-size: 15px;
-      font-weight: 800;
-      color: #f8fafc;
-      word-break: break-word;
-    }
+.main-btn {
+  width: 100%;
+  padding: 15px;
+  border-radius: 16px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  background: linear-gradient(90deg,#3b82f6,#9333ea);
+}
 
-    .brand {
-      margin-top: 4px;
-      color: #94a3b8;
-      font-size: 12px;
-    }
+.data-buttons {
+  display: flex;
+  gap: 9px;
+  margin-top: 10px;
+}
 
-    .category {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      color: #67e8f9;
-      background: rgba(34,211,238,.08);
-      border: 1px solid rgba(34,211,238,.18);
-      font-size: 9px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
+.data-btn {
+  flex: 1;
+  padding: 13px 5px;
+  border-radius: 14px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.1);
+}
 
-    .price {
-      flex-shrink: 0;
-      height: fit-content;
-      padding: 8px 10px;
-      border-radius: 11px;
-      background: linear-gradient(135deg, #3b82f6, #9333ea);
-      font-size: 13px;
-      font-weight: 800;
-      white-space: nowrap;
-      box-shadow: 0 5px 15px rgba(124,58,237,.25);
-    }
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(0,0,0,.65);
+}
 
-    .actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid rgba(255,255,255,.08);
-    }
+.modal-box {
+  width: 100%;
+  max-width: 430px;
+  padding: 22px;
+  border-radius: 25px 25px 0 0;
+  background: linear-gradient(160deg,#0b0f2b,#150a34);
+}
 
-    .btn-small {
-      flex: 1;
-      padding: 10px;
-      border-radius: 11px;
-      color: #e2e8f0;
-      background: rgba(255,255,255,.05);
-      font-size: 12px;
-      font-weight: 700;
-    }
+.modal-box h2 {
+  margin-top: 0;
+  font-size: 17px;
+}
 
-    .btn-small.delete {
-      color: #fda4af;
-      background: rgba(244,63,94,.1);
-    }
+.input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 13px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 12px;
+  outline: none;
+  color: white;
+  background: rgba(255,255,255,.06);
+}
 
-    .main-button {
-      width: 100%;
-      margin-top: 18px;
-      padding: 14px;
-      border-radius: 16px;
-      color: white;
-      background: linear-gradient(90deg, #3b82f6, #9333ea);
-      font-size: 14px;
-      font-weight: 800;
-      box-shadow: 0 8px 25px rgba(124,58,237,.3);
-    }
+.input::placeholder {
+  color: #64748b;
+}
 
-    .data-buttons {
-      display: flex;
-      gap: 8px;
-      margin-top: 10px;
-    }
+.modal-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 5px;
+}
 
-    .data-button {
-      flex: 1;
-      padding: 12px 8px;
-      border-radius: 13px;
-      color: #cbd5e1;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.08);
-      font-size: 11px;
-      font-weight: 700;
-    }
+.modal-buttons button {
+  flex: 1;
+  padding: 13px;
+  border-radius: 12px;
+  font-weight: bold;
+  color: white;
+}
 
-    .data-button.export {
-      color: #93c5fd;
-    }
+.cancel {
+  background: rgba(255,255,255,.08);
+}
 
-    .data-button.import {
-      color: #c4b5fd;
-    }
+.save {
+  background: linear-gradient(90deg,#3b82f6,#9333ea);
+}
 
-    input.form-input {
-      width: 100%;
-      margin-top: 6px;
-      padding: 12px;
-      border-radius: 11px;
-      border: 1px solid rgba(255,255,255,.1);
-      outline: 0;
-      background: rgba(255,255,255,.05);
-      color: white;
-      font-size: 14px;
-    }
+.warning {
+  color: #fda4af;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
 
-    input.form-input:focus {
-      border-color: rgba(96,165,250,.7);
-    }
-
-    .form-label {
-      display: block;
-      margin-top: 12px;
-      color: #94a3b8;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding: 0;
-      background: rgba(0,0,0,.65);
-    }
-
-    .modal.center {
-      align-items: center;
-      padding: 20px;
-    }
-
-    .modal-box {
-      width: 100%;
-      max-width: 430px;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 20px;
-      border-radius: 25px 25px 0 0;
-      background: linear-gradient(160deg, #0b0f2b, #150a34);
-      border: 1px solid rgba(255,255,255,.1);
-    }
-
-    .modal.center .modal-box {
-      border-radius: 22px;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .modal-title {
-      font-size: 16px;
-      font-weight: 800;
-    }
-
-    .close {
-      background: transparent;
-      color: #94a3b8;
-      font-size: 22px;
-    }
-
-    .modal-buttons {
-      display: flex;
-      gap: 8px;
-      margin-top: 18px;
-    }
-
-    .modal-btn {
-      flex: 1;
-      padding: 12px;
-      border-radius: 12px;
-      font-weight: 700;
-      color: white;
-      background: rgba(255,255,255,.08);
-    }
-
-    .modal-btn.primary {
-      background: linear-gradient(90deg, #3b82f6, #9333ea);
-    }
-
-    .modal-btn.danger {
-      background: linear-gradient(90deg, #f43f5e, #f97316);
-    }
-
-    .error {
-      margin-top: 10px;
-      color: #fda4af;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .toast {
-      position: fixed;
-      z-index: 200;
-      left: 50%;
-      bottom: 22px;
-      transform: translateX(-50%);
-      width: calc(100% - 40px);
-      max-width: 390px;
-      padding: 13px 15px;
-      border-radius: 14px;
-      background: rgba(15,23,42,.95);
-      border: 1px solid rgba(255,255,255,.12);
-      text-align: center;
-      font-size: 12px;
-      color: #e2e8f0;
-      box-shadow: 0 10px 35px rgba(0,0,0,.4);
-      animation: toast .25s ease;
-    }
-
-    @keyframes toast {
-      from {
-        opacity: 0;
-        transform: translate(-50%, 15px);
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, 0);
-      }
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    @media (min-width: 600px) {
-      body {
-        padding: 20px 0;
-      }
-
-      .modal-box {
-        border-radius: 25px;
-      }
-    }
-  </style>
+input[type=file] {
+  display: none;
+}
+</style>
 </head>
 
 <body>
@@ -425,149 +268,88 @@
 
     <div>
       <h1>CEK TARIF HARGA BARANG</h1>
-      <div class="subtitle">Toko digital kamu, satu ketikan aja</div>
+      <div class="subtitle">PatyStore • Toko digital kamu</div>
     </div>
   </div>
 
-  <div class="search-box">
-    <span class="search-icon">🔎</span>
-
+  <div class="search">
+    🔍
     <input
       id="search"
       type="text"
       placeholder="Ketik merek atau nama barang..."
-      autocomplete="off"
+      oninput="tampilkanBarang()"
     >
-
-    <button
-      class="clear-search hidden"
-      id="clearSearch"
-      onclick="clearSearch()"
-    >×</button>
   </div>
 
-  <div id="products" class="products"></div>
+  <div id="content" class="content"></div>
 
-  <div id="empty" class="empty">
-    <div class="empty-icon">📦</div>
-
-    <div class="empty-title">
-      Mulai ketik untuk mencari tarif harga barang.
-    </div>
-
-    <div class="empty-text">
-      Temukan harga dengan cepat dan mudah.
-    </div>
-  </div>
-
-  <button class="main-button" onclick="openAdd()">
+  <button class="main-btn" onclick="bukaTambah()">
     ＋ Tambah Barang
   </button>
 
   <div class="data-buttons">
 
-    <button
-      class="data-button export"
-      onclick="exportData()"
-    >
+    <button class="data-btn" onclick="exportData()">
       📤 Export Data
     </button>
 
-    <button
-      class="data-button import"
-      onclick="document.getElementById('importFile').click()"
-    >
+    <label class="data-btn" style="text-align:center">
       📥 Import Data
-    </button>
+      <input
+        type="file"
+        accept=".json,application/json"
+        onchange="importData(event)"
+      >
+    </label>
 
   </div>
-
-  <input
-    type="file"
-    id="importFile"
-    accept=".json,application/json"
-    class="hidden"
-  >
 
 </div>
 
 
 <!-- MODAL TAMBAH / EDIT -->
 
-<div id="formModal" class="modal hidden">
+<div id="modal" class="modal">
 
   <div class="modal-box">
 
-    <div class="modal-header">
-
-      <div id="formTitle" class="modal-title">
-        Tambah Barang Baru
-      </div>
-
-      <button
-        class="close"
-        onclick="closeForm()"
-      >×</button>
-
-    </div>
-
-    <label class="form-label">
-      Nama Barang
-    </label>
+    <h2 id="modalTitle">Tambah Barang</h2>
 
     <input
       id="nama"
-      class="form-input"
-      placeholder="Contoh: Mie Sedaap Goreng"
+      class="input"
+      placeholder="Nama Barang"
     >
-
-    <label class="form-label">
-      Merek
-    </label>
 
     <input
       id="merek"
-      class="form-input"
-      placeholder="Contoh: Sedaap"
+      class="input"
+      placeholder="Merek"
     >
-
-    <label class="form-label">
-      Harga (Rupiah)
-    </label>
 
     <input
       id="harga"
-      class="form-input"
+      class="input"
       type="number"
-      min="1"
-      placeholder="Contoh: 3000"
+      placeholder="Harga"
     >
-
-    <label class="form-label">
-      Kategori
-    </label>
 
     <input
       id="kategori"
-      class="form-input"
-      placeholder="Contoh: Makanan Instan"
+      class="input"
+      placeholder="Kategori"
     >
 
-    <div id="formError" class="error hidden"></div>
+    <div id="error" class="warning"></div>
 
     <div class="modal-buttons">
 
-      <button
-        class="modal-btn"
-        onclick="closeForm()"
-      >
+      <button class="cancel" onclick="tutupModal()">
         Batal
       </button>
 
-      <button
-        class="modal-btn primary"
-        onclick="saveProduct()"
-      >
+      <button class="save" onclick="simpanBarang()">
         Simpan
       </button>
 
@@ -578,47 +360,7 @@
 </div>
 
 
-<!-- MODAL HAPUS -->
-
-<div id="deleteModal" class="modal center hidden">
-
-  <div class="modal-box">
-
-    <div class="modal-title">
-      Hapus barang ini?
-    </div>
-
-    <p
-      id="deleteText"
-      style="color:#94a3b8;font-size:12px;line-height:1.6"
-    ></p>
-
-    <div class="modal-buttons">
-
-      <button
-        class="modal-btn"
-        onclick="closeDelete()"
-      >
-        Batal
-      </button>
-
-      <button
-        class="modal-btn danger"
-        onclick="confirmDelete()"
-      >
-        Ya, Hapus
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
 <script>
-
-const STORAGE_KEY = "cek-tarif-harga-data-v2";
 
 const DATA_AWAL = [
   {
@@ -658,119 +400,48 @@ const DATA_AWAL = [
   }
 ];
 
-
-let barangList = loadData();
+let barangList =
+  JSON.parse(localStorage.getItem("PatyStoreData")) ||
+  DATA_AWAL;
 
 let editingId = null;
-let deleteId = null;
 
 
-/* =========================
-   PENYIMPANAN
-========================= */
-
-function loadData() {
-
-  try {
-
-    const saved = localStorage.getItem(STORAGE_KEY);
-
-    if (!saved) {
-      return DATA_AWAL;
-    }
-
-    const data = JSON.parse(saved);
-
-    if (!Array.isArray(data)) {
-      return DATA_AWAL;
-    }
-
-    return data;
-
-  } catch (error) {
-
-    return DATA_AWAL;
-
-  }
-
-}
-
-
-function saveData() {
+function simpanLocal() {
 
   localStorage.setItem(
-    STORAGE_KEY,
+    "PatyStoreData",
     JSON.stringify(barangList)
   );
 
 }
 
 
-/* =========================
-   FORMAT RUPIAH
-========================= */
+function rupiah(angka) {
 
-function formatRupiah(number) {
-
-  return "Rp" + Number(number).toLocaleString("id-ID");
+  return "Rp" + Number(angka).toLocaleString("id-ID");
 
 }
 
 
-/* =========================
-   RENDER
-========================= */
-
-function render() {
+function tampilkanBarang() {
 
   const query =
-    document
-      .getElementById("search")
+    document.getElementById("search")
       .value
       .trim()
       .toLowerCase();
 
-  const container =
-    document.getElementById("products");
-
-  const empty =
-    document.getElementById("empty");
-
-  container.innerHTML = "";
+  const content =
+    document.getElementById("content");
 
   if (!query) {
 
-    empty.classList.remove("hidden");
-
-    return;
-
-  }
-
-  empty.classList.add("hidden");
-
-  const hasil = barangList.filter(function(item) {
-
-    return (
-      item.nama.toLowerCase().includes(query) ||
-      item.merek.toLowerCase().includes(query)
-    );
-
-  });
-
-
-  if (hasil.length === 0) {
-
-    container.innerHTML = `
-      <div class="empty" style="padding-top:40px">
-        <div class="empty-icon">❌</div>
-
-        <div class="empty-title">
-          Barang tidak ditemukan.
-        </div>
-
-        <div class="empty-text">
-          Coba nama atau merek lain.
-        </div>
+    content.innerHTML = `
+      <div class="empty">
+        🔎
+        <h3>Mulai mencari barang</h3>
+        <p>Ketik nama atau merek barang.</p>
       </div>
     `;
 
@@ -778,271 +449,208 @@ function render() {
 
   }
 
+  const hasil = barangList.filter(b =>
+    b.nama.toLowerCase().includes(query) ||
+    b.merek.toLowerCase().includes(query)
+  );
 
-  hasil.forEach(function(item) {
+  if (hasil.length === 0) {
 
-    const card =
-      document.createElement("div");
+    content.innerHTML = `
+      <div class="empty">
+        ❌
+        <h3>Barang tidak ditemukan</h3>
+        <p>Coba nama atau merek lain.</p>
+      </div>
+    `;
 
-    card.className = "card";
+    return;
 
-    card.innerHTML = `
+  }
+
+  content.innerHTML = hasil.map(b => `
+
+    <div class="card">
 
       <div class="card-top">
 
-        <div style="min-width:0">
+        <div>
 
-          <div class="product-name">
-            ${escapeHTML(item.nama)}
+          <div class="nama">
+            ${escapeHTML(b.nama)}
           </div>
 
-          <div class="brand">
-            Merek: ${escapeHTML(item.merek)}
+          <div class="merek">
+            Merek: ${escapeHTML(b.merek)}
           </div>
 
-          <span class="category">
-            ${escapeHTML(item.kategori)}
+          <span class="kategori">
+            ${escapeHTML(b.kategori)}
           </span>
 
         </div>
 
-        <div class="price">
-          ${formatRupiah(item.harga)}
+        <div class="harga">
+          ${rupiah(b.harga)}
         </div>
 
       </div>
 
-      <div class="actions">
+      <div class="buttons">
 
         <button
-          class="btn-small"
-          onclick="openEdit(${item.id})"
+          class="small-btn"
+          onclick="bukaEdit(${b.id})"
         >
           ✏️ Edit
         </button>
 
         <button
-          class="btn-small delete"
-          onclick="openDelete(${item.id})"
+          class="small-btn delete"
+          onclick="hapusBarang(${b.id})"
         >
           🗑️ Hapus
         </button>
 
       </div>
 
-    `;
+    </div>
 
-    container.appendChild(card);
-
-  });
+  `).join("");
 
 }
 
 
-/* =========================
-   SECURITY HTML
-========================= */
+function escapeHTML(text) {
 
-function escapeHTML(value) {
-
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 
 }
 
 
-/* =========================
-   SEARCH
-========================= */
-
-document
-  .getElementById("search")
-  .addEventListener("input", function() {
-
-    const clear =
-      document.getElementById("clearSearch");
-
-    if (this.value) {
-      clear.classList.remove("hidden");
-    } else {
-      clear.classList.add("hidden");
-    }
-
-    render();
-
-  });
-
-
-function clearSearch() {
-
-  document.getElementById("search").value = "";
-
-  document
-    .getElementById("clearSearch")
-    .classList.add("hidden");
-
-  render();
-
-}
-
-
-/* =========================
-   TAMBAH
-========================= */
-
-function openAdd() {
+function bukaTambah() {
 
   editingId = null;
 
-  document.getElementById("formTitle")
-    .textContent = "Tambah Barang Baru";
-
-  clearForm();
-
-  document
-    .getElementById("formModal")
-    .classList.remove("hidden");
-
-}
-
-
-function clearForm() {
+  document.getElementById("modalTitle")
+    .textContent = "Tambah Barang";
 
   document.getElementById("nama").value = "";
   document.getElementById("merek").value = "";
   document.getElementById("harga").value = "";
   document.getElementById("kategori").value = "";
 
-  document
-    .getElementById("formError")
-    .classList.add("hidden");
+  document.getElementById("error")
+    .textContent = "";
+
+  document.getElementById("modal")
+    .style.display = "flex";
 
 }
 
 
-/* =========================
-   EDIT
-========================= */
+function bukaEdit(id) {
 
-function openEdit(id) {
+  const barang =
+    barangList.find(b => b.id === id);
 
-  const item =
-    barangList.find(function(b) {
-      return b.id === id;
-    });
-
-  if (!item) return;
+  if (!barang) return;
 
   editingId = id;
 
-  document.getElementById("formTitle")
+  document.getElementById("modalTitle")
     .textContent = "Edit Barang";
 
   document.getElementById("nama").value =
-    item.nama;
+    barang.nama;
 
   document.getElementById("merek").value =
-    item.merek;
+    barang.merek;
 
   document.getElementById("harga").value =
-    item.harga;
+    barang.harga;
 
   document.getElementById("kategori").value =
-    item.kategori;
+    barang.kategori;
 
-  document
-    .getElementById("formError")
-    .classList.add("hidden");
+  document.getElementById("error")
+    .textContent = "";
 
-  document
-    .getElementById("formModal")
-    .classList.remove("hidden");
+  document.getElementById("modal")
+    .style.display = "flex";
 
 }
 
 
-function closeForm() {
+function tutupModal() {
 
-  document
-    .getElementById("formModal")
-    .classList.add("hidden");
+  document.getElementById("modal")
+    .style.display = "none";
 
 }
 
 
-/* =========================
-   SIMPAN
-========================= */
-
-function saveProduct() {
+function simpanBarang() {
 
   const nama =
-    document.getElementById("nama").value.trim();
+    document.getElementById("nama")
+      .value.trim();
 
   const merek =
-    document.getElementById("merek").value.trim();
+    document.getElementById("merek")
+      .value.trim();
 
   const harga =
     Number(document.getElementById("harga").value);
 
   const kategori =
-    document.getElementById("kategori").value.trim();
-
+    document.getElementById("kategori")
+      .value.trim();
 
   const error =
-    document.getElementById("formError");
-
+    document.getElementById("error");
 
   if (!nama || !merek || !harga || !kategori) {
 
     error.textContent =
       "Semua kolom wajib diisi.";
 
-    error.classList.remove("hidden");
-
     return;
 
   }
 
-
-  if (!Number.isFinite(harga) || harga <= 0) {
+  if (harga <= 0) {
 
     error.textContent =
       "Harga harus lebih dari 0.";
 
-    error.classList.remove("hidden");
-
     return;
 
   }
 
-
   if (editingId !== null) {
 
-    barangList =
-      barangList.map(function(item) {
+    const index =
+      barangList.findIndex(
+        b => b.id === editingId
+      );
 
-        if (item.id === editingId) {
+    if (index !== -1) {
 
-          return {
-            id: item.id,
-            nama: nama,
-            merek: merek,
-            harga: harga,
-            kategori: kategori
-          };
+      barangList[index] = {
+        id: editingId,
+        nama,
+        merek,
+        harga,
+        kategori
+      };
 
-        }
-
-        return item;
-
-      });
-
-    showToast("Barang berhasil diperbarui.");
+    }
 
   } else {
 
@@ -1050,170 +658,99 @@ function saveProduct() {
 
       id: Date.now(),
 
-      nama: nama,
+      nama,
 
-      merek: merek,
+      merek,
 
-      harga: harga,
+      harga,
 
-      kategori: kategori
+      kategori
 
     });
-
-    showToast("Barang berhasil ditambahkan.");
 
   }
 
+  simpanLocal();
 
-  saveData();
+  tutupModal();
 
-  closeForm();
-
-  render();
-
-}
-
-
-/* =========================
-   HAPUS
-========================= */
-
-function openDelete(id) {
-
-  const item =
-    barangList.find(function(b) {
-      return b.id === id;
-    });
-
-  if (!item) return;
-
-  deleteId = id;
-
-  document.getElementById("deleteText")
-    .textContent =
-      item.nama +
-      " akan dihapus dari daftar dan tidak bisa dikembalikan.";
-
-  document
-    .getElementById("deleteModal")
-    .classList.remove("hidden");
+  tampilkanBarang();
 
 }
 
 
-function closeDelete() {
+function hapusBarang(id) {
 
-  deleteId = null;
+  const barang =
+    barangList.find(b => b.id === id);
 
-  document
-    .getElementById("deleteModal")
-    .classList.add("hidden");
+  if (!barang) return;
 
-}
+  const yakin =
+    confirm(
+      `Hapus "${barang.nama}"?`
+    );
 
-
-function confirmDelete() {
-
-  if (deleteId === null) return;
+  if (!yakin) return;
 
   barangList =
-    barangList.filter(function(item) {
+    barangList.filter(
+      b => b.id !== id
+    );
 
-      return item.id !== deleteId;
+  simpanLocal();
 
-    });
-
-  saveData();
-
-  closeDelete();
-
-  render();
-
-  showToast("Barang berhasil dihapus.");
+  tampilkanBarang();
 
 }
 
-
-/* =========================
-   EXPORT DATA
-========================= */
 
 function exportData() {
 
   try {
 
-    const data = {
-
-      aplikasi: "Cek Tarif Harga",
-
-      versi: 2,
-
-      tanggalExport:
-        new Date().toISOString(),
-
-      jumlahBarang:
-        barangList.length,
-
-      barang:
-        barangList
-
-    };
-
-
-    const json =
-      JSON.stringify(data, null, 2);
-
+    const data =
+      JSON.stringify(
+        barangList,
+        null,
+        2
+      );
 
     const blob =
       new Blob(
-        [json],
+        [data],
         {
           type: "application/json"
         }
       );
 
-
     const url =
       URL.createObjectURL(blob);
 
-
-    const link =
+    const a =
       document.createElement("a");
 
-    link.href = url;
+    a.href = url;
 
-    const tanggal =
-      new Date()
-        .toISOString()
-        .slice(0, 10);
+    a.download =
+      "PatyStore.json";
 
-    link.download =
-      "data-tarif-harga-" +
-      tanggal +
-      ".json";
+    document.body.appendChild(a);
 
+    a.click();
 
-    document.body.appendChild(link);
+    document.body.removeChild(a);
 
-    link.click();
+    URL.revokeObjectURL(url);
 
-    document.body.removeChild(link);
-
-    setTimeout(function() {
-
-      URL.revokeObjectURL(url);
-
-    }, 1000);
-
-
-    showToast(
-      "Data berhasil diexport."
+    alert(
+      "Data berhasil diekspor sebagai PatyStore.json"
     );
 
   } catch (error) {
 
-    showToast(
-      "Gagal melakukan export data."
+    alert(
+      "Gagal mengekspor data."
     );
 
   }
@@ -1221,202 +758,121 @@ function exportData() {
 }
 
 
-/* =========================
-   IMPORT DATA
-========================= */
+function importData(event) {
 
-document
-  .getElementById("importFile")
-  .addEventListener(
-    "change",
-    function(event) {
+  const file =
+    event.target.files?.[0];
 
-      const file =
-        event.target.files[0];
+  if (!file) return;
 
-      if (!file) return;
+  if (
+    !file.name
+      .toLowerCase()
+      .endsWith(".json")
+  ) {
 
+    alert(
+      "Pilih file JSON."
+    );
 
-      const reader =
-        new FileReader();
+    event.target.value = "";
 
+    return;
 
-      reader.onload =
-        function(e) {
+  }
 
-          try {
+  const reader =
+    new FileReader();
 
-            const data =
-              JSON.parse(e.target.result);
+  reader.onload = function(e) {
 
+    try {
 
-            let imported;
+      const data =
+        JSON.parse(
+          e.target.result
+        );
 
+      if (!Array.isArray(data)) {
 
-            if (
-              Array.isArray(data)
-            ) {
+        throw new Error();
 
-              imported = data;
+      }
 
-            } else if (
-              Array.isArray(data.barang)
-            ) {
+      const valid =
+        data.every(b =>
+          b &&
+          b.nama &&
+          b.merek &&
+          b.harga &&
+          b.kategori
+        );
 
-              imported = data.barang;
+      if (!valid) {
 
-            } else {
+        throw new Error();
 
-              throw new Error(
-                "Format data tidak valid"
-              );
+      }
 
-            }
+      const yakin =
+        confirm(
+          `Import ${data.length} barang?\n\nData barang yang sekarang akan diganti.`
+        );
 
+      if (!yakin) {
 
-            const valid =
-              imported.filter(function(item) {
+        event.target.value = "";
 
-                return (
-                  item &&
-                  typeof item.nama === "string" &&
-                  typeof item.merek === "string" &&
-                  Number.isFinite(Number(item.harga)) &&
-                  typeof item.kategori === "string"
-                );
+        return;
 
-              });
+      }
 
+      barangList =
+        data.map((b,index) => ({
 
-            if (valid.length === 0) {
+          id:
+            Date.now() + index,
 
-              throw new Error(
-                "Tidak ada data barang yang valid."
-              );
+          nama:
+            String(b.nama),
 
-            }
+          merek:
+            String(b.merek),
 
+          harga:
+            Number(b.harga),
 
-            barangList =
-              valid.map(function(item, index) {
+          kategori:
+            String(b.kategori)
 
-                return {
+        }));
 
-                  id:
-                    Number.isFinite(Number(item.id))
-                      ? Number(item.id)
-                      : Date.now() + index,
+      simpanLocal();
 
-                  nama:
-                    item.nama.trim(),
+      tampilkanBarang();
 
-                  merek:
-                    item.merek.trim(),
+      alert(
+        `Berhasil mengimpor ${barangList.length} barang.`
+      );
 
-                  harga:
-                    Number(item.harga),
+    } catch (error) {
 
-                  kategori:
-                    item.kategori.trim()
-
-                };
-
-              });
-
-
-            saveData();
-
-            render();
-
-            showToast(
-              valid.length +
-              " barang berhasil diimport."
-            );
-
-
-          } catch (error) {
-
-            showToast(
-              "File tidak valid atau rusak."
-            );
-
-          }
-
-
-          event.target.value = "";
-
-        };
-
-
-      reader.readAsText(file);
+      alert(
+        "File tidak valid.\nGunakan PatyStore.json hasil Export Data."
+      );
 
     }
-  );
 
+    event.target.value = "";
 
-/* =========================
-   TOAST
-========================= */
+  };
 
-function showToast(message) {
-
-  const old =
-    document.querySelector(".toast");
-
-  if (old) old.remove();
-
-
-  const toast =
-    document.createElement("div");
-
-  toast.className = "toast";
-
-  toast.textContent = message;
-
-  document.body.appendChild(toast);
-
-
-  setTimeout(function() {
-
-    toast.remove();
-
-  }, 2500);
+  reader.readAsText(file);
 
 }
 
 
-/* =========================
-   TUTUP MODAL KETIKA
-   KLIK LUAR
-========================= */
-
-document
-  .getElementById("formModal")
-  .addEventListener("click", function(e) {
-
-    if (e.target === this) {
-      closeForm();
-    }
-
-  });
-
-
-document
-  .getElementById("deleteModal")
-  .addEventListener("click", function(e) {
-
-    if (e.target === this) {
-      closeDelete();
-    }
-
-  });
-
-
-/* =========================
-   MULAI APLIKASI
-========================= */
-
-render();
+tampilkanBarang();
 
 </script>
 
