@@ -1,4 +1,4 @@
-name: Build APK
+name: Build PatyStore APK
 
 on:
   workflow_dispatch:
@@ -11,10 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -25,23 +26,10 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: Install Capacitor
-        run: |
-          npm install @capacitor/core @capacitor/cli @capacitor/android
-
-      - name: Build Web App
-        run: npm run build
-
-      - name: Initialize Capacitor
-        run: |
-          if [ ! -f capacitor.config.json ] && [ ! -f capacitor.config.ts ]; then
-            npx cap init "Cek Tarif Harga" "com.cektarifharga.app" --web-dir=dist
-          fi
-
-      - name: Add Android platform
+      - name: Add Android
         run: |
           if [ ! -d android ]; then
             npx cap add android
@@ -50,18 +38,18 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync android
 
-      - name: Build Android APK
+      - name: Build APK
         working-directory: android
         run: ./gradlew assembleDebug --no-daemon
 
       - name: Check APK
         run: |
           test -f android/app/build/outputs/apk/debug/app-debug.apk
-          echo "APK berhasil dibuat!"
+          echo "APK BERHASIL DIBUAT!"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Cek-Tarif-Harga-APK
+          name: PatyStore-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
