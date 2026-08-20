@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cek Tarif Harga Barang</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: white;
+      background: linear-gradient(160deg, #05060f, #0b0f2b 45%, #150a34);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 430px;
+      margin: auto;
+      padding: 28px 20px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      background: linear-gradient(135deg, #3b82f6, #9333ea);
+    }
+
+    h1 {
+      font-size: 19px;
+      background: linear-gradient(90deg, #93c5fd, #a5f3fc, #c4b5fd);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      color: #94a3b8;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .search {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+    }
+
+    .search input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: white;
+      font-size: 14px;
+    }
+
+    .search input::placeholder {
+      color: #64748b;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 55px 10px;
+      color: #94a3b8;
+    }
+
+    .empty-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .card {
+      margin-top: 12px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .name {
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .brand {
+      color: #94a3b8;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .category {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 8px;
+      border-radius: 20px;
+      color: #67e8f9;
+      background: rgba(34,211,238,.1);
+      border: 1px solid rgba(34,211,238,.2);
+      font-size: 10px;
+    }
+
+    .price {
+      height: fit-content;
+      padding: 7px 10px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: bold;
+      white-space: nowrap;
+      background: linear-gradient(135deg, #3b82f6, #9333ea);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 12px;
+      color: white;
+      font-weight: bold;
+      background: rgba(255,255,255,.06);
+    }
+
+    .delete {
+      color: #fda4af;
+      background: rgba(244,63,94,.1);
+    }
+
+    .add {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border-radius: 16px;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #3b82f6, #9333ea);
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(0,0,0,.7);
+      padding: 0;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .form {
+      width: 100%;
+      max-width: 430px;
+      padding: 22px;
+      border-radius: 25px 25px 0 0;
+      background: linear-gradient(160deg, #0b0f2b, #150a34);
+    }
+
+    .form h2 {
+      margin-bottom: 18px;
+      font-size: 17px;
+    }
+
+    .form label {
+      display: block;
+      color: #94a3b8;
+      font-size: 12px;
+      margin-top: 12px;
+      margin-bottom: 5px;
+    }
+
+    .form input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.1);
+      outline: none;
+      background: rgba(255,255,255,.06);
+      color: white;
+    }
+
+    .save {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border-radius: 15px;
+      color: white;
+      font-weight: bold;
+      background: linear-gradient(90deg, #3b82f6, #9333ea);
+    }
+
+    .close {
+      float: right;
+      color: #94a3b8;
+      background: none;
+      font-size: 20px;
+    }
+
+    .error {
+      color: #fda4af;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="logo">✨</div>
+    <div>
+      <h1>CEK TARIF HARGA BARANG</h1>
+      <p class="subtitle">Toko digital kamu, satu ketikan aja</p>
+    </div>
+  </div>
+
+  <div class="search">
+    🔍
+    <input
+      id="search"
+      type="text"
+      placeholder="Ketik merek atau nama barang..."
+      oninput="cariBarang()"
+    >
+  </div>
+
+  <div id="hasil">
+    <div class="empty">
+      <div class="empty-icon">📦</div>
+      <p>Mulai ketik untuk mencari tarif harga barang.</p>
+      <small>Temukan harga dengan cepat dan mudah.</small>
+    </div>
+  </div>
+
+  <button class="add" onclick="bukaTambah()">
+    ＋ Tambah Barang
+  </button>
+
+</div>
+
+<div class="modal" id="modal">
+  <div class="form">
+
+    <button class="close" onclick="tutupForm()">✕</button>
+
+    <h2 id="judulForm">Tambah Barang Baru</h2>
+
+    <label>Nama Barang</label>
+    <input id="nama" placeholder="Contoh: Mie Sedaap Goreng">
+
+    <label>Merek</label>
+    <input id="merek" placeholder="Contoh: Sedaap">
+
+    <label>Harga</label>
+    <input id="harga" type="number" placeholder="Contoh: 3000">
+
+    <label>Kategori</label>
+    <input id="kategori" placeholder="Contoh: Makanan Instan">
+
+    <div id="error" class="error"></div>
+
+    <button class="save" onclick="simpanBarang()">
+      Simpan Barang
+    </button>
+
+  </div>
+</div>
+
+<script>
+
+let barangList = [
+  {
+    id: 1,
+    nama: "Indomie Goreng",
+    merek: "Indomie",
+    harga: 3500,
+    kategori: "Makanan Instan"
+  },
+  {
+    id: 2,
+    nama: "Aqua 600 ml",
+    merek: "Aqua",
+    harga: 4000,
+    kategori: "Minuman"
+  },
+  {
+    id: 3,
+    nama: "Teh Botol Sosro",
+    merek: "Sosro",
+    harga: 5000,
+    kategori: "Minuman"
+  },
+  {
+    id: 4,
+    nama: "Rinso",
+    merek: "Rinso",
+    harga: 25000,
+    kategori: "Kebutuhan Rumah Tangga"
+  },
+  {
+    id: 5,
+    nama: "Lifebuoy",
+    merek: "Lifebuoy",
+    harga: 5000,
+    kategori: "Kebutuhan Rumah Tangga"
+  }
+];
+
+let editingId = null;
+
+function formatRupiah(angka) {
+  return "Rp" + Number(angka).toLocaleString("id-ID");
+}
+
+function simpanData() {
+  localStorage.setItem(
+    "daftarBarang",
+    JSON.stringify(barangList)
+  );
+}
+
+function muatData() {
+  const data = localStorage.getItem("daftarBarang");
+
+  if (data) {
+    barangList = JSON.parse(data);
+  }
+}
+
+function cariBarang() {
+
+  const query =
+    document.getElementById("search").value
+    .toLowerCase()
+    .trim();
+
+  const hasil = document.getElementById("hasil");
+
+  if (!query) {
+    hasil.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">📦</div>
+        <p>Mulai ketik untuk mencari tarif harga barang.</p>
+        <small>Temukan harga dengan cepat dan mudah.</small>
+      </div>
+    `;
+    return;
+  }
+
+  const data = barangList.filter(b =>
+    b.nama.toLowerCase().includes(query) ||
+    b.merek.toLowerCase().includes(query)
+  );
+
+  if (data.length === 0) {
+    hasil.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">❌</div>
+        <p>Barang tidak ditemukan.</p>
+        <small>Coba nama atau merek lain.</small>
+      </div>
+    `;
+    return;
+  }
+
+  hasil.innerHTML = data.map(b => `
+    <div class="card">
+
+      <div class="card-top">
+
+        <div>
+          <div class="name">${b.nama}</div>
+          <div class="brand">Merek: ${b.merek}</div>
+
+          <span class="category">
+            ${b.kategori}
+          </span>
+        </div>
+
+        <div class="price">
+          ${formatRupiah(b.harga)}
+        </div>
+
+      </div>
+
+      <div class="buttons">
+
+        <button class="btn"
+          onclick="bukaEdit(${b.id})">
+          ✏️ Edit
+        </button>
+
+        <button class="btn delete"
+          onclick="hapusBarang(${b.id})">
+          🗑️ Hapus
+        </button>
+
+      </div>
+
+    </div>
+  `).join("");
+}
+
+function bukaTambah() {
+
+  editingId = null;
+
+  document.getElementById("judulForm").innerText =
+    "Tambah Barang Baru";
+
+  document.getElementById("nama").value = "";
+  document.getElementById("merek").value = "";
+  document.getElementById("harga").value = "";
+  document.getElementById("kategori").value = "";
+  document.getElementById("error").innerText = "";
+
+  document.getElementById("modal")
+    .classList.add("show");
+}
+
+function bukaEdit(id) {
+
+  const barang =
+    barangList.find(b => b.id === id);
+
+  if (!barang) return;
+
+  editingId = id;
+
+  document.getElementById("judulForm").innerText =
+    "Edit Barang";
+
+  document.getElementById("nama").value =
+    barang.nama;
+
+  document.getElementById("merek").value =
+    barang.merek;
+
+  document.getElementById("harga").value =
+    barang.harga;
+
+  document.getElementById("kategori").value =
+    barang.kategori;
+
+  document.getElementById("error").innerText = "";
+
+  document.getElementById("modal")
+    .classList.add("show");
+}
+
+function tutupForm() {
+
+  document.getElementById("modal")
+    .classList.remove("show");
+
+}
+
+function simpanBarang() {
+
+  const nama =
+    document.getElementById("nama").value.trim();
+
+  const merek =
+    document.getElementById("merek").value.trim();
+
+  const harga =
+    document.getElementById("harga").value;
+
+  const kategori =
+    document.getElementById("kategori").value.trim();
+
+  const error =
+    document.getElementById("error");
+
+  if (!nama || !merek || !harga || !kategori) {
+
+    error.innerText =
+      "Semua kolom wajib diisi.";
+
+    return;
+  }
+
+  if (Number(harga) <= 0) {
+
+    error.innerText =
+      "Harga harus lebih dari 0.";
+
+    return;
+  }
+
+  if (editingId !== null) {
+
+    const index =
+      barangList.findIndex(
+        b => b.id === editingId
+      );
+
+    barangList[index] = {
+      id: editingId,
+      nama,
+      merek,
+      harga: Number(harga),
+      kategori
+    };
+
+  } else {
+
+    barangList.unshift({
+      id: Date.now(),
+      nama,
+      merek,
+      harga: Number(harga),
+      kategori
+    });
+
+  }
+
+  simpanData();
+  tutupForm();
+  cariBarang();
+}
+
+function hapusBarang(id) {
+
+  const barang =
+    barangList.find(b => b.id === id);
+
+  if (!barang) return;
+
+  const yakin = confirm(
+    "Hapus " + barang.nama + "?"
+  );
+
+  if (!yakin) return;
+
+  barangList =
+    barangList.filter(
+      b => b.id !== id
+    );
+
+  simpanData();
+  cariBarang();
+}
+
+muatData();
+
+</script>
+
+</body>
+  </html>
