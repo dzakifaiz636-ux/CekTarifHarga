@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "echo Web app siap"
+    "build": "echo Build website selesai"
   },
   "dependencies": {
-    "@capacitor/android": "^7.4.3",
-    "@capacitor/core": "^7.4.3",
-    "@capacitor/cli": "^7.4.3",
-    "@capacitor/share": "^7.0.0"
+    "@capacitor/core": "7.4.3",
+    "@capacitor/android": "7.4.3",
+    "@capacitor/share": "7.0.2",
+    "@capacitor/filesystem": "7.1.2",
+    "@capacitor/cli": "7.4.3"
   }
 }
